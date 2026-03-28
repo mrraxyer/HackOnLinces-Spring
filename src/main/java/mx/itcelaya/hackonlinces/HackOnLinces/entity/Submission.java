@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import mx.itcelaya.hackonlinces.HackOnLinces.emums.SubmissionStatus;
+import mx.itcelaya.hackonlinces.HackOnLinces.enums.SubmissionStatus;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 

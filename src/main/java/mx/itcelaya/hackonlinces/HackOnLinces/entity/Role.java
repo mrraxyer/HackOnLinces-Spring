@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import mx.itcelaya.hackonlinces.HackOnLinces.emums.RoleName;
+import mx.itcelaya.hackonlinces.HackOnLinces.enums.RoleName;
 
 @Entity
 @Table(name = "roles")

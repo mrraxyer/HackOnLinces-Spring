@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import mx.itcelaya.hackonlinces.HackOnLinces.emums.AccountStatus;
-import mx.itcelaya.hackonlinces.HackOnLinces.emums.UserType;
+import mx.itcelaya.hackonlinces.HackOnLinces.enums.AccountStatus;
+import mx.itcelaya.hackonlinces.HackOnLinces.enums.UserType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 

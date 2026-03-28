@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import mx.itcelaya.hackonlinces.HackOnLinces.emums.AuthProviderType;
+import mx.itcelaya.hackonlinces.HackOnLinces.enums.AuthProviderType;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;

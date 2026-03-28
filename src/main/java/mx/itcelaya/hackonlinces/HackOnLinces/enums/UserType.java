@@ -1,4 +1,4 @@
-package mx.itcelaya.hackonlinces.HackOnLinces.emums;
+package mx.itcelaya.hackonlinces.HackOnLinces.enums;
 
 public enum UserType {
     INTERNAL,
