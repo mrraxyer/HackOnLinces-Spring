@@ -1,31 +1,18 @@
 package mx.itcelaya.hackonlinces.HackOnLinces.mapper;
 
+import mx.itcelaya.hackonlinces.HackOnLinces.dto.response.AdminUserResponse;
 import mx.itcelaya.hackonlinces.HackOnLinces.dto.response.AuthResponse;
 import mx.itcelaya.hackonlinces.HackOnLinces.dto.response.UserProfileResponse;
+import mx.itcelaya.hackonlinces.HackOnLinces.dto.response.WaitlistUserResponse;
 import mx.itcelaya.hackonlinces.HackOnLinces.entity.User;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/*
- * Mapper manual — sin librerías externas (MapStruct, ModelMapper).
- * Preferimos control explícito sobre magia implícita para un proyecto
- * donde la estructura de entidades puede evolucionar frecuentemente.
- *
- * Regla: el mapper NUNCA recibe ni devuelve entidades JPA en métodos públicos
- * que salgan del paquete service/controller. Solo trabaja con DTOs hacia afuera.
- */
 @Component
 public class UserMapper {
 
-    /*
-     * User → UserProfileResponse
-     * Requiere que user.getUserRoles() ya esté inicializado (no lazy sin sesión).
-     * Usar siempre con findByEmailWithRoles() para garantizar esto.
-     */
     public UserProfileResponse toProfileResponse(User user) {
-        List<String> roles = extractRoleNames(user);
-
         return new UserProfileResponse(
                 user.getId(),
                 user.getFullName(),
@@ -33,18 +20,12 @@ public class UserMapper {
                 user.getEmail(),
                 user.getUserType(),
                 user.getAccountStatus(),
-                roles,
+                extractRoleNames(user),
                 user.getCreatedAt()
         );
     }
 
-    /*
-     * User + token → AuthResponse
-     * Se usa después del registro o login para devolver token + datos básicos.
-     */
     public AuthResponse toAuthResponse(User user, String token) {
-        List<String> roles = extractRoleNames(user);
-
         return AuthResponse.of(
                 token,
                 user.getId(),
@@ -52,11 +33,44 @@ public class UserMapper {
                 user.getEmail(),
                 user.getUserType(),
                 user.getAccountStatus(),
-                roles
+                extractRoleNames(user)
         );
     }
 
-    // ── Helpers privados ─────────────────────────────────────────────────────
+    public WaitlistUserResponse toWaitlistResponse(User user) {
+        return new WaitlistUserResponse(
+                user.getId(),
+                user.getFullName(),
+                user.getInstituteName(),
+                user.getEmail(),
+                user.getUserType(),
+                user.getAccountStatus(),
+                extractRoleNames(user),
+                user.getCreatedAt()
+        );
+    }
+
+    /*
+     * Vista completa para el panel de gestión de usuarios del admin.
+     * totalSubmissions se pasa explícitamente porque requeriría
+     * una query extra si lo obtuviéramos desde la entidad (lazy).
+     */
+    public AdminUserResponse toAdminUserResponse(User user, int totalSubmissions) {
+        return new AdminUserResponse(
+                user.getId(),
+                user.getFullName(),
+                user.getInstituteName(),
+                user.getEmail(),
+                user.getUserType(),
+                user.getAccountStatus(),
+                extractRoleNames(user),
+                totalSubmissions,
+                user.getCreatedAt(),
+                user.getUpdatedAt()
+        );
+    }
+
+    // ── Helper privado ───────────────────────────────────────────────────────
 
     private List<String> extractRoleNames(User user) {
         return user.getUserRoles().stream()
