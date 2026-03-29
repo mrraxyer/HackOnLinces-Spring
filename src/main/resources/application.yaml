@@ -51,6 +51,6 @@ app:
     dir: ${UPLOAD_DIR:uploads}
 
   submission:
-    max-attempts: ${SUBMISSION_MAX_ATTEMPTS:3}
+    max-attempts: ${SUBMISSION_MAX_ATTEMPTS:5}
 
   internal-domain: ${INTERNAL_EMAIL_DOMAIN:itcelaya.edu.mx}
