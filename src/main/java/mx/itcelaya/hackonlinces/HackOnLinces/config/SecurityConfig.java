@@ -1,5 +1,6 @@
 package mx.itcelaya.hackonlinces.HackOnLinces.config;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import mx.itcelaya.hackonlinces.HackOnLinces.security.AppUserDetailsService;
 import mx.itcelaya.hackonlinces.HackOnLinces.security.JwtAuthFilter;
@@ -63,6 +64,12 @@ public class SecurityConfig {
 
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .exceptionHandling(exceptions -> exceptions
+                        .authenticationEntryPoint((request, response, authException) -> {
+
+                            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No autorizado");
+                        })
                 )
 
                 .authorizeHttpRequests(auth -> auth
