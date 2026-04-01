@@ -29,8 +29,9 @@ spring:
       client:
         registration:
           google:
-            client-id: ${GOOGLE_CLIENT_ID:xxxId.com}
-            client-secret: ${GOOGLE_CLIENT_SECRET:xxxSecret}
+            # Le agregamos un valor por defecto (después de los dos puntos)
+            client-id: ${GOOGLE_CLIENT_ID:google-client-id-no-configurado}
+            client-secret: ${GOOGLE_CLIENT_SECRET:google-client-secret-no-configurado}
             scope:
               - email
               - profile
