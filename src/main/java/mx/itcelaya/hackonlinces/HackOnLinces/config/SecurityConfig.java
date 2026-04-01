@@ -43,15 +43,14 @@ public class SecurityConfig {
      * Rutas completamente públicas — no requieren ningún token ni sesión.
      */
     private static final String[] PUBLIC_ENDPOINTS = {
-            "/auth/register",
-            "/auth/login",
-            "/oauth2/**",
-            "/login/oauth2/**",
-            "/v3/api-docs/**",
-            "/swagger-ui/**",
-            "/swagger-ui.html",
-            "/actuator/health",
-            "/actuator/info"
+            "/auth/**",           // Cubre /register y /login
+            "/oauth2/**",         // Flujo de autorización
+            "/login/oauth2/**",   // Callbacks de Google
+            "/v3/api-docs/**",    // Documentación OpenAPI
+            "/swagger-ui/**",     // Interfaz de Swagger
+            "/swagger-ui.html",   // Punto de entrada de Swagger
+            "/actuator/**",       // Hace público el health check
+            "/error"              // Evita redirecciones infinitas si algo falla
     };
 
     @Bean
