@@ -31,25 +31,14 @@ if [ "$generated_any" -eq 1 ]; then
     printf 'SPRING_DATASOURCE_PASSWORD=%s\n' "$SPRING_DATASOURCE_PASSWORD"
   } > "$RUNTIME_ENV_FILE"
   chmod 600 "$RUNTIME_ENV_FILE"
-
-  echo '=== GENERATED ENV (COPY TO DOKPLOY ENV VARS) ==='
-  echo '# App'
-  echo "PORT=${PORT:-8080}"
-  echo "APP_JWT_SECRET=$APP_JWT_SECRET"
-  echo "APP_JWT_EXPIRATION_MS=${APP_JWT_EXPIRATION_MS:-86400000}"
-  echo ''
-  echo '# Database'
-  echo "SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL:-jdbc:postgresql://postgres:5432/hackbackend}"
+echo "SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL:-jdbc:postgresql://db:5432/hackonlinces}"
   echo "SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME:-postgres}"
   echo "SPRING_DATASOURCE_PASSWORD=$SPRING_DATASOURCE_PASSWORD"
   echo "SPRING_JPA_HIBERNATE_DDL_AUTO=${SPRING_JPA_HIBERNATE_DDL_AUTO:-update}"
   echo "SPRING_JPA_SHOW_SQL=${SPRING_JPA_SHOW_SQL:-false}"
   echo ''
   echo '# Postgres container'
-  echo "POSTGRES_DB=${POSTGRES_DB:-hackbackend}"
-  echo "POSTGRES_USER=${POSTGRES_USER:-postgres}"
-  echo "POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-$SPRING_DATASOURCE_PASSWORD}"
-  echo 'Paste these in Dokploy to keep values across redeploys.'
+  echo "POSTGRES_DB=${POSTGRES_DB:-hackonlinces}"
   echo '================================================='
 fi
 
