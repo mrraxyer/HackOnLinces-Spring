@@ -1,3 +1,8 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1
+
 spring:
   datasource:
     # Inyección directa desde el entorno. Dependemos 100% de las variables generadas por el script o el compose.

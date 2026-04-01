@@ -44,16 +44,18 @@ public class SecurityConfig {
      * Rutas completamente públicas — no requieren ningún token ni sesión.
      */
     private static final String[] PUBLIC_ENDPOINTS = {
-            "/auth/**",           // Cubre /register y /login
-            "/oauth2/**",         // Flujo de autorización
-            "/login/oauth2/**",   // Callbacks de Google
-            "/v3/api-docs/**",    // Documentación OpenAPI
-            "/swagger-ui/**",     // Interfaz de Swagger
-            "/swagger-ui.html",   // Punto de entrada de Swagger
-            "/actuator/**",       // Hace público el health check
-            "/error"              // Evita redirecciones infinitas si algo falla
+            "/auth/**",
+            "/oauth2/**",
+            "/login/oauth2/**",
+            "/v3/api-docs",
+            "/v3/api-docs/**",
+            "/swagger-ui.html",
+            "/swagger-ui/**",
+            "/swagger-resources/**",
+            "/webjars/**",
+            "/actuator/**",
+            "/error"
     };
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -62,16 +64,11 @@ public class SecurityConfig {
 
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
                 .exceptionHandling(exceptions -> exceptions
                         .authenticationEntryPoint((request, response, authException) -> {
-
                             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "No autorizado");
                         })
                 )
-
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
 
@@ -81,6 +78,11 @@ public class SecurityConfig {
                         // Todo lo demás requiere autenticación
                         .anyRequest().authenticated()
                 )
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+
+
 
                 /*
                  * Configuración del flujo OAuth2 con Google.
@@ -140,4 +142,5 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", config);
         return source;
     }
+
 }
