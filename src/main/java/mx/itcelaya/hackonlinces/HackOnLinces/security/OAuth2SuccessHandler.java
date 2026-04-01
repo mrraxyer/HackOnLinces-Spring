@@ -37,7 +37,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     private final AuthProviderRepository authProviderRepository;
     private final JwtUtil jwtUtil;
 
-    @Value("${app.internal-domain}")
+    @Value("${app.internal-domain:itcelaya.edu.mx}")
     private String internalDomain;
 
     /*

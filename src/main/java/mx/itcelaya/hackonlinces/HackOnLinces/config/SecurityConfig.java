@@ -36,7 +36,7 @@ public class SecurityConfig {
     private final AppUserDetailsService userDetailsService;
     private final mx.itcelaya.hackonlinces.HackOnLinces.security.OAuth2SuccessHandler oauth2SuccessHandler;
 
-    @Value("${app.cors.allowed-origins}")
+    @Value("${app.cors.allowed-origins:http://localhost:3000,http://localhost:5173}")
     private String allowedOrigins;
 
     /*
